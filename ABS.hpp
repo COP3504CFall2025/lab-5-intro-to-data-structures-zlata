@@ -11,7 +11,7 @@ template<typename T>
 class ABS : public StackInterface<T> {
 public:
     // Big 5 + Parameterized Constructor
-    ABS();
+    ABS() : capacity_(1), size_(0), {}
     explicit ABS(const size_t capacity);
     ABS(const ABS& other);
     ABS& operator=(const ABS& rhs);
