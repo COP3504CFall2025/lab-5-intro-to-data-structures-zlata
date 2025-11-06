@@ -11,7 +11,7 @@ template<typename T>
 class ABS : public StackInterface<T> {
 public:
     // Big 5 + Parameterized Constructor
-    ABS() : capacity_(1), curr_size_(0), {
+    ABS() : capacity_(1), curr_size_(0) {
         array_ = new T[capacity_];
     }
 
@@ -61,7 +61,7 @@ public:
         return *this;
     }
 
-    ~ABS() noexcept override {
+    ~ABS() noexcept {
         delete[] array_;
     }
 
@@ -101,7 +101,7 @@ public:
     }
 
     T pop() override {
-        return array_[size_ - 1];
+        return array_[--curr_size_];
     }
 
 
