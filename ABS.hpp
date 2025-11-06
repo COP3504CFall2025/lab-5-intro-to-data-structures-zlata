@@ -101,8 +101,9 @@ public:
     }
 
     T pop() override {
-        return array_[size_ - 1]
+        return array_[size_ - 1];
     }
+
 
 private:
     size_t capacity_;

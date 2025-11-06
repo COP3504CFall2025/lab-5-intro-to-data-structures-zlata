@@ -100,10 +100,16 @@ public:
 
     // Access
     T peek() const override {
-        return array_[0]
+        return array_[0];
     }
 
     // Deletion
-    T dequeue() override;
-
+    T dequeue() override {
+        T front = array_[0];
+        for (size_t i = 1; i < curr_size_; i++) {
+            array_[i-1] = array_[i];
+        }
+        curr_size_--;
+    }
+    return front;
 };
