@@ -27,7 +27,7 @@ public:
     }
 
     ABS& operator=(const ABS& rhs) {
-        if (this = &rhs) {
+        if (this == &rhs) {
             return *this;
         }
         delete[] array_;
@@ -48,7 +48,7 @@ public:
     }
 
     ABS& operator=(ABS&& rhs) noexcept {
-        if (this = &rhs) {
+        if (this == &rhs) {
             return *this;
         }
         delete[] array_;

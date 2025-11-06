@@ -43,7 +43,7 @@ public:
     }
 
     ABDQ& operator=(const ABDQ& other) {
-        if (this = &other) {
+        if (this == &other) {
             return *this;
         }
         delete[] data_;
@@ -59,7 +59,7 @@ public:
     }
 
     ABDQ& operator=(ABDQ&& other) noexcept {
-        if (this = &other) {
+        if (this == &other) {
             return *this;
         }
         delete[] data_;
@@ -98,7 +98,7 @@ public:
 
     // Deletion
     T popFront() override {
-        
+
     }
     T popBack() override;
 
