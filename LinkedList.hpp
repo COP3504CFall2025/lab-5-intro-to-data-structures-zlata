@@ -7,9 +7,6 @@ using namespace std;
 template <typename T>
 class LinkedList {
 public:
-	Node() : data(0), next(nullptr), prev(nullptr) {}
-	
-    Node(T data, Node* next, Node* prev) : data(data), next(next), prev(prev) {}
  	// Behaviors
 	void printForward() const {
 		Node* currentNode = head;;
@@ -171,12 +168,15 @@ private:
 	Node* tail;
 	unsigned int count;
 
-	struct Node {
-    	T data;
-   		Node* prev;
-   	`	Node* next;
-	};
+	
 
 };
 
-
+template <typename T>
+struct Node {
+    T data;
+   	Node* prev;
+   	Node* next;
+	explicit Node() : data(), next(nullptr), prev(nullptr) {}
+	Node(data) : data(data), next(nullptr), prev(nullptr)  {}
+	};
