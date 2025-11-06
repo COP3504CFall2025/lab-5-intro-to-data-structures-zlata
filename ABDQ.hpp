@@ -76,7 +76,7 @@ public:
         return *this;
     }
 
-    ~ABDQ() override {
+    ~ABDQ() {
         delete[] data_;
     }
 
@@ -94,13 +94,33 @@ public:
         }
         data_[size_++] = item;
     }
-    void pushBack(const T& item) override;
+    void pushBack(const T& item) override {
+
+    }
 
     // Deletion
     T popFront() override {
-
+        T front = data_[front_];
+        if (front == capacity_-1) {
+            back_ = 0;
+        }
+        else {
+            front_++;
+        }
+        size_--;
+        return front;
     }
-    T popBack() override;
+    T popBack() override {
+        T back = data_[back_];
+        if (back_ == 0) {
+            back_ = capacity_ - 1;
+        }
+        else {
+            back_--;
+        }
+        size_--;
+        return back;
+    }
 
     // Access
     const T& front() const override {
