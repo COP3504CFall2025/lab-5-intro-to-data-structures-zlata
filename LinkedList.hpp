@@ -5,8 +5,8 @@ using namespace std;
 template <typename T>
 	struct Node {
 		T data;
-		Node* prev;
-		Node* next;
+		Node<T>* prev;
+		Node<T>* next;
 		explicit Node() : data(), next(nullptr), prev(nullptr) {}
 		Node(const T& data) : data(data), next(nullptr), prev(nullptr)  {}
 	};
@@ -16,14 +16,14 @@ class LinkedList {
 public:
  	// Behaviors
 	void printForward() const {
-		Node* currentNode = head;
+		Node<T>* currentNode = head;
 		while (currentNode) {
 			std::cout << currentNode->data << " ";
 			currentNode = currentNode->next;
 		}
 	}
 	void printReverse() const {
-		Node* currentNode = tail;
+		Node<T>* currentNode = tail;
 		while (currentNode) {
 			std::cout << currentNode->data << " ";
 			currentNode = currentNode->prev;
@@ -35,25 +35,25 @@ public:
 		return count;
 	}
 
-	Node* getHead() {
+	Node<T>* getHead() {
 		return head;
 	}
 
-	const Node* getHead() const {
+	const Node<T>* getHead() const {
 		return head;
 	}
 
-	Node* getTail() {
+	Node<T>* getTail() {
 		return tail;
 	}
 
-	const Node* getTail() const {
+	const Node<T>* getTail() const {
 		return tail;
 	}
 
 	// Insertion
 	void addHead(const T& data) {
-		Node* newNode = new Node(data);
+		Node<T>* newNode = new Node(data);
 		newNode->next = head;
 		if (head) {
 			head->prev = newNode;
@@ -66,7 +66,7 @@ public:
 	}
 
 	void addTail(const T& data) {
-		Node* newNode = new Node(data);
+		Node<T>* newNode = new Node(data);
 		newNode->prev = tail;
 		if (tail) {
 			tail->next = newNode;
@@ -83,7 +83,7 @@ public:
 		if (!head) {
 			return false;
 		}
-		Node* tempNode = head;
+		Node<T>* tempNode = head;
 		head = head->next;
 		if (head) {
 			head->prev = nullptr;
@@ -99,7 +99,7 @@ public:
 		if (!tail) {
 			return false;
 		}
-		Node* tempNode = tail;
+		Node<T>* tempNode = tail;
 		tail = tail->prev;
 		if (tail) {
 			tail->next = nullptr;
@@ -138,7 +138,7 @@ public:
 			return *this;
 		}
 		Clear();
-		Node* currentNode = rhs.head;
+		Node<T>* currentNode = rhs.head;
 		while (currentNode) {
 			addTail(currentNode->data);
 			currentNode = currentNode->next;
@@ -150,7 +150,7 @@ public:
 	LinkedList() : head(nullptr), tail(nullptr), count(0) {}
 
 	LinkedList(const LinkedList<T>& list) : head(nullptr), tail(nullptr), count(0) {
-		Node* currentNode = list.head;
+		Node<T>* currentNode = list.head;
 		while (currentNode) {
 			addTail(currentNode->data);
 			currentNode = currentNode->next;
@@ -170,8 +170,8 @@ public:
 
 private:
 	// Stores pointers to first and last nodes and count
-	Node* head;
-	Node* tail;
+	Node<T>* head;
+	Node<T>* tail;
 	unsigned int count;
 
 
