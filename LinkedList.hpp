@@ -9,14 +9,14 @@ class LinkedList {
 public:
  	// Behaviors
 	void printForward() const {
-		Node* currentNode = head;;
+		Node* currentNode = head;
 		while (currentNode) {
 			std::cout << currentNode->data << " ";
 			currentNode = currentNode->next;
 		}
 	}
 	void printReverse() const {
-		Node* currentNode = tail;;
+		Node* currentNode = tail;
 		while (currentNode) {
 			std::cout << currentNode->data << " ";
 			currentNode = currentNode->prev;
@@ -79,7 +79,7 @@ public:
 		Node* tempNode = head;
 		head = head->next;
 		if (head) {
-			head->prev = nullptr
+			head->prev = nullptr;
 		}
 		else {
 			tail = nullptr;
@@ -95,7 +95,7 @@ public:
 		Node* tempNode = tail;
 		tail = tail->prev;
 		if (tail) {
-			tail->next = nullptr
+			tail->next = nullptr;
 		}
 		else {
 			head = nullptr;
@@ -114,7 +114,7 @@ public:
 	// Operators
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept {
 		if (this == &other) {
-			return this;
+			return *this;
 		}
 		Clear();
 		head = other.head;
@@ -128,13 +128,12 @@ public:
 
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
 		if (this == &rhs) {
-			return this;
+			return *this;
 		}
 		Clear();
 		Node* currentNode = rhs.head;
-		count = rhs.count;
 		while (currentNode) {
-			addTail(currentNode);
+			addTail(currentNode->data);
 			currentNode = currentNode->next;
 		}
 		return *this;
@@ -143,10 +142,10 @@ public:
 	// Construction/Destruction
 	LinkedList() : head(nullptr), tail(nullptr), count(0) {}
 
-	LinkedList(const LinkedList<T>& list) : head(nullptr), tail(nullptr), count(list.count) {
+	LinkedList(const LinkedList<T>& list) : head(nullptr), tail(nullptr), count(0) {
 		Node* currentNode = list.head;
 		while (currentNode) {
-			addTail(currentNode);
+			addTail(currentNode->data);
 			currentNode = currentNode->next;
 		}
 	}
@@ -169,14 +168,13 @@ private:
 	unsigned int count;
 
 	
+	struct Node {
+		T data;
+		Node* prev;
+		Node* next;
+		explicit Node() : data(), next(nullptr), prev(nullptr) {}
+		Node(const T& data) : data(data), next(nullptr), prev(nullptr)  {}
+	};
+	
 
 };
-
-template <typename T>
-struct Node {
-    T data;
-   	Node* prev;
-   	Node* next;
-	explicit Node() : data(), next(nullptr), prev(nullptr) {}
-	Node(data) : data(data), next(nullptr), prev(nullptr)  {}
-	};
