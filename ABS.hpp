@@ -84,7 +84,7 @@ public:
     void push(const T& data) override {
         if (curr_size_ == capacity_) {
             size_t newCapacity_ = capacity_ * scale_factor_;
-            newArray_ = new T[newCapacity_];
+            T* newArray_ = new T[newCapacity_];
             for (size_t i = 0; i < curr_size_; i++) {
                 newArray_[i] = array_[i];
             }

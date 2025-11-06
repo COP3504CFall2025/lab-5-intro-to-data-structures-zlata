@@ -84,7 +84,7 @@ public:
     void pushFront(const T& item) override {
         if (size_ == capacity_) {
             size_t newCapacity_ = capacity_ * 2;
-            newData_ = new T[newCapacity_];
+            T* newData_ = new T[newCapacity_];
             for (size_t i = 0; i < size_; i++) {
                 newData_[i] = data_[i];
             }
@@ -92,7 +92,7 @@ public:
             data_ = newData_;
             capacity_ = newCapacity_;
         }
-        array_[size_++] = item;
+        data_[size_++] = item;
     }
     void pushBack(const T& item) override;
 
