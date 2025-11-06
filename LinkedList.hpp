@@ -7,7 +7,10 @@ using namespace std;
 template <typename T>
 class LinkedList {
 public:
-	// Behaviors
+	Node() : data(0), next(nullptr), prev(nullptr) {}
+	
+    Node(T data, Node* next, Node* prev) : data(data), next(next), prev(prev) {}
+ 	// Behaviors
 	void printForward() const {
 		Node* currentNode = head;;
 		while (currentNode) {
@@ -167,6 +170,13 @@ private:
 	Node* head;
 	Node* tail;
 	unsigned int count;
+
+	struct Node {
+    	T data;
+   		Node* prev;
+   	`	Node* next;
+	};
+
 };
 
 
