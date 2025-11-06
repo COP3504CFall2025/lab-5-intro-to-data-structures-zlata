@@ -2,7 +2,14 @@
 #include <iostream>
 using namespace std;
 
-
+template <typename T>
+	struct Node {
+		T data;
+		Node* prev;
+		Node* next;
+		explicit Node() : data(), next(nullptr), prev(nullptr) {}
+		Node(const T& data) : data(data), next(nullptr), prev(nullptr)  {}
+	};
 
 template <typename T>
 class LinkedList {
@@ -167,14 +174,5 @@ private:
 	Node* tail;
 	unsigned int count;
 
-	
-	struct Node {
-		T data;
-		Node* prev;
-		Node* next;
-		explicit Node() : data(), next(nullptr), prev(nullptr) {}
-		Node(const T& data) : data(data), next(nullptr), prev(nullptr)  {}
-	};
-	
 
 };
