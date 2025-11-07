@@ -108,6 +108,19 @@ public:
             throw std::runtime_error("The stack is empty");
         }
         return array_[--curr_size_];
+        if (curr_size_ > 0 && curr_size_ <= (capacity_ / 2)) {
+            size_t newCapacity_ = capacity_ / 2;
+            if (newCapacity_ < 1) {
+                newCapacity_ = 1;
+            }
+            T* newArray_ = new T[newCapacity_];
+            for (size_t i = 0; i < curr_size_; i++) {
+                newArray_[i] = array_[i];
+            }
+            delete[] array_;
+            array_ = newArray_;
+            capacity_ = newCapacity_;
+        }
     }
 
 
