@@ -49,8 +49,8 @@ public:
         delete[] data_;
         capacity_ = other.capacity_;
         size_ = other.size_;
-        front_ = other.front_;
-        back_ = other.back_;
+        front_ = 0;
+        back_ = size_;
         data_ = new T[capacity_];
         for (size_t i = 0; i < size_; i++) {
             data_[i] = other.data_[(other.front_ + i) % capacity_]; 
@@ -128,14 +128,16 @@ public:
         if (size_ == 0) {
             if (capacity_ > 1) {
                 delete[] data_;
-                data_ = new T[1];
-                capacity_ = 1;
+                capacity_ = 4;
+                data_ = new T[capacity_];
+                front_ = 0;
+                back_ = 0;
             }
         }
         if (size_ > 0 && size_ <= (capacity_ / 4)) {
             size_t newCapacity_ = capacity_ / 2;
-            if (newCapacity_ < 1) {
-                newCapacity_ = 1;
+            if (newCapacity_ < 4) {
+                newCapacity_ = 4;
             }
             T* newData_ = new T[newCapacity_];
             for (size_t i = 0; i < size_; i++) {
@@ -159,14 +161,16 @@ public:
         if (size_ == 0) {
             if (capacity_ > 1) {
                 delete[] data_;
-                data_ = new T[1];
-                capacity_ = 1;
+                capacity_ = 4;
+                data_ = new T[capacity_];
+                front_ = 0;
+                back_ = 0;
             }
         }
         if (size_ > 0 && size_ <= (capacity_ / 4)) {
             size_t newCapacity_ = capacity_ / 2;
-            if (newCapacity_ < 1) {
-                newCapacity_ = 1;
+            if (newCapacity_ < 4) {
+                newCapacity_ = 4;
             }
             T* newData_ = new T[newCapacity_];
             for (size_t i = 0; i < size_; i++) {
