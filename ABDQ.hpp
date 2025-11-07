@@ -29,11 +29,11 @@ public:
     ABDQ(const ABDQ& other) : capacity_(other.capacity_), size_(other.size_), front_(0), back_(other.size_) {
         data_ = new T[capacity_];
         for (size_t i = 0; i < size_; i++) {
-            data_[i] = other.data_[(other.front_ + i) % capacity_]; 
+            data_[i] = other.data_[(other.front_ + i) % other.capacity_]; 
         }
     }
 
-    ABDQ(ABDQ&& other) noexcept : capacity_(other.capacity_), size_(other.size_), front_(other.size_), back_(other.back_) {
+    ABDQ(ABDQ&& other) noexcept : capacity_(other.capacity_), size_(other.size_), front_(other.front_), back_(other.back_) {
         data_ = other.data_;
         other.data_ = nullptr;
         other.capacity_ = 0;
@@ -125,6 +125,28 @@ public:
         T front = data_[front_];
         front_ = (front_ + 1) % capacity_;
         size_--;
+        if (size_ == 0) {
+            if (capacity_ > 1) {
+                delete[] data_;
+                data_ = new T[1];
+                capacity_ = 1;
+            }
+        }
+        if (size_ > 0 && size_ <= (capacity_ / 4)) {
+            size_t newCapacity_ = capacity_ / 2;
+            if (newCapacity_ < 1) {
+                newCapacity_ = 1;
+            }
+            T* newData_ = new T[newCapacity_];
+            for (size_t i = 0; i < size_; i++) {
+                newData_[i] = data_[(front_ + i) % capacity_];
+            }
+            delete[] data_;
+            data_ = newData_;
+            capacity_ = newCapacity_;
+            front_ = 0;
+            back_ = size_;
+        }
         return front;
     }
     T popBack() override {
@@ -134,6 +156,28 @@ public:
         back_ = (back_ + capacity_ - 1) % capacity_;
         T back = data_[back_];
         size_--;
+        if (size_ == 0) {
+            if (capacity_ > 1) {
+                delete[] data_;
+                data_ = new T[1];
+                capacity_ = 1;
+            }
+        }
+        if (size_ > 0 && size_ <= (capacity_ / 4)) {
+            size_t newCapacity_ = capacity_ / 2;
+            if (newCapacity_ < 1) {
+                newCapacity_ = 1;
+            }
+            T* newData_ = new T[newCapacity_];
+            for (size_t i = 0; i < size_; i++) {
+                newData_[i] = data_[(front_ + i) % capacity_];
+            }
+            delete[] data_;
+            data_ = newData_;
+            capacity_ = newCapacity_;
+            front_ = 0;
+            back_ = size_;
+        }
         return back;
     }
 
