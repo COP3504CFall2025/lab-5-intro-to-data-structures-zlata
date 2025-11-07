@@ -86,7 +86,7 @@ public:
             size_t newCapacity_ = capacity_ * SCALE_FACTOR;
             T* newData_ = new T[newCapacity_];
             for (size_t i = 0; i < size_; i++) {
-                newData_[i] = data_[(front + i) % capacity_];
+                newData_[i] = data_[(front_ + i) % capacity_];
             }
             delete[] data_;
             data_ = newData_;
@@ -103,7 +103,7 @@ public:
             size_t newCapacity_ = capacity_ * SCALE_FACTOR;
             T* newData_ = new T[newCapacity_];
             for (size_t i = 0; i < size_; i++) {
-                newData_[i] = data_[(front + i) % capacity_];
+                newData_[i] = data_[(front_ + i) % capacity_];
             }
             delete[] data_;
             data_ = newData_;
