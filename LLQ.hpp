@@ -20,6 +20,9 @@ public:
 
     // Deletion
     T dequeue() override {
+        if (!list.getHead()) {
+            throw std::runtime_error("The queue is empty");
+        }
         T data = list.getHead()->data;
         list.removeHead();
         return data;
@@ -27,6 +30,9 @@ public:
 
     // Access
     T peek() const override {
+        if (!list.getHead()) {
+            throw std::runtime_error("The queue is empty");
+        }
         return list.getHead()->data;
     }
 

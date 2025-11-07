@@ -110,6 +110,6 @@ public:
             array_[i-1] = array_[i];
         }
         curr_size_--;
+        return front;
     }
-    return front;
 };

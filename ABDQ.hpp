@@ -26,10 +26,10 @@ public:
         data_ = new T[capacity_];
     }
 
-    ABDQ(const ABDQ& other) : capacity_(other.capacity_), size_(other.size_), front_(other.front_), back_(other.back_) {
+    ABDQ(const ABDQ& other) : capacity_(other.capacity_), size_(other.size_), front_(0), back_(other.back_) {
         data_ = new T[capacity_];
         for (size_t i = 0; i < size_; i++) {
-            data_[i] = other.data_[i]; 
+            data_[i] = other.data_[]; 
         }
     }
 
@@ -95,7 +95,11 @@ public:
         data_[size_++] = item;
     }
     void pushBack(const T& item) override {
-
+        if (size_ == capacity_) {
+        
+        }
+        data_[back_] = item;
+        
     }
 
     // Deletion
