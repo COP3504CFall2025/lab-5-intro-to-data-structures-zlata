@@ -26,10 +26,10 @@ public:
         data_ = new T[capacity_];
     }
 
-    ABDQ(const ABDQ& other) : capacity_(other.capacity_), size_(other.size_), front_(0), back_(other.back_) {
+    ABDQ(const ABDQ& other) : capacity_(other.capacity_), size_(other.size_), front_(0), back_(other.size_) {
         data_ = new T[capacity_];
         for (size_t i = 0; i < size_; i++) {
-            data_[i] = other.data_[]; 
+            data_[i] = other.data_[(other.front_ + i) % capacity_]; 
         }
     }
 
@@ -53,7 +53,7 @@ public:
         back_ = other.back_;
         data_ = new T[capacity_];
         for (size_t i = 0; i < size_; i++) {
-            data_[i] = other.data_[i];
+            data_[i] = other.data_[(other.front_ + i) % capacity_]; 
         }
         return *this;
     }
@@ -83,56 +83,73 @@ public:
     // Insertion
     void pushFront(const T& item) override {
         if (size_ == capacity_) {
-            size_t newCapacity_ = capacity_ * 2;
+            size_t newCapacity_ = capacity_ * SCALE_FACTOR;
             T* newData_ = new T[newCapacity_];
             for (size_t i = 0; i < size_; i++) {
-                newData_[i] = data_[i];
+                newData_[i] = data_[(front + i) % capacity_];
             }
             delete[] data_;
             data_ = newData_;
             capacity_ = newCapacity_;
+            front_ = 0;
+            back_ = size_;
         }
-        data_[size_++] = item;
+        front_ = (front_ + capacity_ - 1) % capacity_;
+        data_[front_]] = item;
+        size_++;
     }
     void pushBack(const T& item) override {
         if (size_ == capacity_) {
-        
+            size_t newCapacity_ = capacity_ * SCALE_FACTOR;
+            T* newData_ = new T[newCapacity_];
+            for (size_t i = 0; i < size_; i++) {
+                newData_[i] = data_[(front + i) % capacity_];
+            }
+            delete[] data_;
+            data_ = newData_;
+            capacity_ = newCapacity_;
+            front_ = 0;
+            back_ = size_;
         }
         data_[back_] = item;
-        
+        back_ = (back_ + 1) % capacity_;
+        size_++;
+
     }
 
     // Deletion
     T popFront() override {
+        if (size_ == 0) {
+            throw std::runtime_error("The deque is empty");
+        }
         T front = data_[front_];
-        if (front == capacity_-1) {
-            back_ = 0;
-        }
-        else {
-            front_++;
-        }
+        front_ = (front_ + 1) % capacity_;
         size_--;
         return front;
     }
     T popBack() override {
+        if (size_ == 0) {
+            throw std::runtime_error("The deque is empty");
+        }
+        back_ = (back_ + capacity_ - 1) % capacity_;
         T back = data_[back_];
-        if (back_ == 0) {
-            back_ = capacity_ - 1;
-        }
-        else {
-            back_--;
-        }
         size_--;
         return back;
     }
 
     // Access
     const T& front() const override {
+        if (size_ == 0) {
+            throw std::runtime_error("The deque is empty");
+        }
         return data_[front_];
     }
 
     const T& back() const override {
-        return data_[back_];
+        if (size_ == 0) {
+            throw std::runtime_error("The deque is empty");
+        }
+        return data_[(back_ + capacity_ -1) % capacity_];
     }
 
     // Getters
