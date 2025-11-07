@@ -96,7 +96,7 @@ public:
 
     }
 
-    T peek() const override {
+    const T& peek() const override {
         if (curr_size_ == 0) {
             throw std::runtime_error("The stack is empty");
         }
@@ -108,6 +108,13 @@ public:
             throw std::runtime_error("The stack is empty");
         }
         T val = array_[--curr_size_];
+        if (curr_size_ == 0) {
+            if (capacity_ > 1) {
+                delete[] array_;
+                array_ = new T[1];
+                capacity_ = 1;
+            }
+        }
         if (curr_size_ > 0 && curr_size_ <= (capacity_ / 4)) {
             size_t newCapacity_ = capacity_ / 2;
             if (newCapacity_ < 1) {
