@@ -100,11 +100,17 @@ public:
 
     // Access
     T peek() const override {
+        if (size__ == 0) {
+            throw std::runtime_error("The queue is empty");
+        }
         return array_[0];
     }
 
     // Deletion
     T dequeue() override {
+        if (size__ == 0) {
+            throw std::runtime_error("The queue is empty");
+        }
         T front = array_[0];
         for (size_t i = 1; i < curr_size_; i++) {
             array_[i-1] = array_[i];
